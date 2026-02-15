@@ -6,14 +6,17 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Setter;
 import org.example.model.Task;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository
 public class TaskRepositoryJSON implements TaskRepository {
     @Setter
+    @Value("${task.file.path}")
     private String filePath;
     private final ObjectMapper objectMapper;
 
