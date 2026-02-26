@@ -1,12 +1,16 @@
 package org.example.controller;
 
+import jakarta.annotation.PostConstruct;
 import org.example.model.Task;
 import org.example.service.TaskService;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Scanner;
 
+@Service
 public class TaskController {
+    @Autowired
     private final TaskService taskService;
     private Scanner scanner;
 
@@ -14,6 +18,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @PostConstruct
     public void initScanner() {
         this.scanner = new Scanner(System.in);
     }
@@ -26,8 +31,8 @@ public class TaskController {
         } else {
             for (Task task : pendingTasks) {
                 System.out.println("ID: " + task.getId() +
-                                 " | Название: " + task.getTitle() +
-                                 " | Создано: " + task.getCreatedAt());
+                        " | Название: " + task.getTitle() +
+                        " | Создано: " + task.getCreatedAt());
             }
         }
         System.out.println("\nВсего завершённых задач: " + taskService.getCompletedCount());
@@ -45,7 +50,7 @@ public class TaskController {
             System.out.print("Выберите действие: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -65,7 +70,7 @@ public class TaskController {
                     break;
                 case 6:
                     System.out.println("До свидания!");
-                return;
+                    return;
                 default:
                     System.out.println("Неверный выбор!");
             }
@@ -81,9 +86,9 @@ public class TaskController {
             for (Task task : allTasks) {
                 String status = task.isCompleted() ? "✓" : "✗";
                 System.out.println("ID: " + task.getId() +
-                                 " | Название: " + task.getTitle() +
-                                 " | Статус: " + status +
-                                 " | Создано: " + task.getCreatedAt());
+                        " | Название: " + task.getTitle() +
+                        " | Статус: " + status +
+                        " | Создано: " + task.getCreatedAt());
             }
         }
     }
